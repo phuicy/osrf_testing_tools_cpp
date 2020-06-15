@@ -19,6 +19,7 @@ target_include_directories(memory_tools
 
 find_library(DL_LIBRARY NAMES dl)
 find_library(BFD_LIBRARY NAMES bfd)
+find_library(Backtrace)
 
 if(DL_LIBRARY AND BFD_LIBRARY)
   message(STATUS "Found bfd: ${BFD_LIBRARY}")
@@ -28,7 +29,7 @@ if(UNIX AND NOT APPLE)
   # On Linux like systems, add dl and use the normal library and LD_PRELOAD.
 
   if(DL_LIBRARY)
-    target_link_libraries(memory_tools ${DL_LIBRARY})
+    target_link_libraries(memory_tools ${DL_LIBRARY} ${Backtrace_LIBRARY})
   endif()
 
   if(BFD_LIBRARY)
